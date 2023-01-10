@@ -25,7 +25,7 @@ Route::get('admin/',[DashboardController::class, 'index'])->middleware(['auth', 
 Route::middleware(['auth','verified'])->prefix('admin')->name('admin.')->group(
     function(){
         Route::get('/',[DashboardController::class, 'index'])->name('dashboard');
-        Route::resource('project', ProjectController::class);
+        Route::resource('project', ProjectController::class)->parameters(['project' => 'project:slug']);
     });
 
 require __DIR__.'/auth.php';
