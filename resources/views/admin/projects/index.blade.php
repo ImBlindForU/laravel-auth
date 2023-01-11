@@ -33,6 +33,13 @@
                                     <a class="btn btn-warning" href="{{ route('admin.project.edit', $project->slug) }}">
                                         <i class="fa-solid fa-pen-to-square"></i>
                                     </a>
+                                    <form action="{{ route('admin.project.destroy', $project->slug) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="btn btn-danger">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
+                                    </form>
                                 </td>
                             </tr>
                         @endforeach

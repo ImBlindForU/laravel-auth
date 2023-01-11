@@ -5,7 +5,16 @@
         <h2 class="text-center mt-3">Modifica il titolo del progetto</h2>
         <div class="row justify-content-center">
             <div class="col-8">
-               
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    
+                    </div>
+                @endif
                 <form action="{{ route('admin.project.update',$project->slug) }}" method="POST">
                     @method('PUT')
                     @csrf

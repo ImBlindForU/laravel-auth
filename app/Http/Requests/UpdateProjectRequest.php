@@ -24,7 +24,10 @@ class UpdateProjectRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            
+            'title' => 'unique:projects|max:150',
+            'content' => 'nullable',
+        
         ];
     }
 }
