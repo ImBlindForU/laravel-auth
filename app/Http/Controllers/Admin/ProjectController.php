@@ -42,7 +42,7 @@ class ProjectController extends Controller
         $validated = $request->validated();
         $validated['slug'] = Project::generateSlug($validated['title']);
         $project = Project::create($validated);
-        return redirect()->route('admin.project.index');
+        return redirect()->route('admin.project.index')->with('message','il project e stato creato con successo');
     }
 
     /**
