@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+
 use App\Http\Controllers\Controller;
 use App\Models\Project;
 use App\Http\Requests\StoreProjectRequest;
@@ -38,10 +39,10 @@ class ProjectController extends Controller
      */
     public function store(StoreProjectRequest $request)
     {
-        $validated = $request->validate();
-        dd($validated);
-        // $form_data = $request->all();
-        // dd($form_data);
+        $validated = $request->validated();
+        $validated['slug'] = Project::generateSlug($validated['title']);
+        $project = Project::create($validated);
+        return redirect()->route('admin.project.index');
     }
 
     /**
