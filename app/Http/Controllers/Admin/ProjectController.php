@@ -64,7 +64,7 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        //
+        return view('admin.projects.edit', compact('project'));
     }
 
     /**
@@ -76,7 +76,10 @@ class ProjectController extends Controller
      */
     public function update(UpdateProjectRequest $request, Project $project)
     {
-        //
+        $validated = $request->validated();
+        $validated['slug'] = Project::generateSlug($validated['title']);
+        $project->update($validated);
+        return redirect()->route('admin.project.index')->with('message',"il $project->title e stato modificato correttamente");
     }
 
     /**
