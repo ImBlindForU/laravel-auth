@@ -19,7 +19,7 @@
                         <textarea type="text" id="content" class="form-control" ></textarea>
                     </div>
 
-                    <button class="btn btn-success">Salva</button>
+                    <button class="btn btn-success" type="submit">Salva</button>
                 </form>
             </div>
         </div>

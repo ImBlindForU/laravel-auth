@@ -38,7 +38,10 @@ class ProjectController extends Controller
      */
     public function store(StoreProjectRequest $request)
     {
-        dd($request->all());
+        $validated = $request->validate();
+        dd($validated);
+        // $form_data = $request->all();
+        // dd($form_data);
     }
 
     /**
