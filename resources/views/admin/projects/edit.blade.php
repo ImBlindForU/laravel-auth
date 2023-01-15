@@ -15,13 +15,25 @@
                     
                     </div>
                 @endif
-                <form action="{{ route('admin.project.update',$project->slug) }}" method="POST">
+                <form action="{{ route('admin.project.update',$project->slug) }}" method="POST" enctype="multipart/form-data">
                     @method('PUT')
                     @csrf
 
                     <div class="form-group mb-3">
                         <label for="title">Titolo</label>
                         <input  type="text" name="title" id="title" class="form-control" value="{{$project->title}}">   
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label for="cover_image">Immagine</label>
+                        <input type="file" id="cover_image" name="cover_image" class="form-control">
+                         <div class="mt-4" id="image-preview">
+                            @if ($project->cover_image)
+                                <img class="w-50" src="{{asset('storage/'.$project->cover_image)}}" alt="">
+                            @else
+                                <p>nessuna immagine</p>
+                            @endif
+                         </div>
                     </div>
 
                     <div class="form-group mb-3">

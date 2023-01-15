@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Project;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
+use Illuminate\Support\Facades\Storage;
 
 class ProjectController extends Controller
 {
@@ -41,6 +42,11 @@ class ProjectController extends Controller
     {
         $validated = $request->validated();
         $validated['slug'] = Project::generateSlug($validated['title']);
+
+        if($request->hasFile('cover_image')){
+            $path = Storage::put('project_images', $request->cover_image);
+            $validated['cover_image']= $path;
+        }
         $project = Project::create($validated);
         return redirect()->route('admin.project.index')->with('message','il project e stato creato con successo');
     }
@@ -78,7 +84,17 @@ class ProjectController extends Controller
     {
         $validated = $request->all();
         $validated['slug'] = Project::generateSlug($validated['title']);
+
+        if($request->hasFile('cover_image')){
+            if($project->cover_image){
+                Storage::delete($project->cover_image);
+            }
+            $path= Storage::put('project_images', $request->cover_image);
+            $validated['cover_image']= $path;
+        }
+
         $project->update($validated);
+
         return redirect()->route('admin.project.index')->with('message'," $project->title e stato modificato correttamente");
     }
 
